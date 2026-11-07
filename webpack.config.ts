@@ -70,7 +70,9 @@ const config: webpack.Configuration[] = [
           },
           {
             from: './app/patches',
-            to: './patches'
+            to: './patches',
+            // No patch is needed for node-pty 1.1.0; keep the copy so a future one still reaches target/.
+            noErrorOnMissing: true
           }
         ]
       })
