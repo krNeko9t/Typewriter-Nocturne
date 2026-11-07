@@ -35,19 +35,23 @@
   },
   "win": {
     "target": {
-      "target": "nsis",
+      "target": "zip",
       "arch": [
         "x64"
       ]
     },
-    "artifactName": "Typewriter-Nocturne-${version}-win-${arch}-setup.${ext}",
-    "rfc3161TimeStampServer": "http://timestamp.comodoca.com"
-  },
-  "nsis": {
-    "include": "build/win/installer.nsh",
-    "oneClick": false,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": true
+    "artifactName": "Typewriter-Nocturne-${version}-win-${arch}.${ext}",
+    "rfc3161TimeStampServer": "http://timestamp.comodoca.com",
+    "extraFiles": [
+      {
+        "from": "build/win/uninstall.cmd",
+        "to": "uninstall.cmd"
+      },
+      {
+        "from": "build/win/uninstall.ps1",
+        "to": "uninstall.ps1"
+      }
+    ]
   },
   "mac": {
     "target": {

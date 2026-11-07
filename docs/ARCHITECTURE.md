@@ -123,8 +123,8 @@ Changes made in Phase 1 to keep the fork independent of a real Hyper installatio
 
 * Config directory `~/.config/TypewriterNocturne/` (Windows: `%APPDATA%\Typewriter Nocturne`), never Hyper's.
 * Legacy `~/.hyper.js` migration disabled (that file belongs to Hyper).
-* CLI renamed `nocturne`; Windows Explorer integration uses `TypewriterNocturne` registry keys; the installer no
-  longer runs Hyper's Squirrel uninstaller.
+* CLI renamed `nocturne`; Windows ships a portable ZIP, so Explorer context-menu keys are written at runtime
+  only when the user opts in from *Tools*, and Hyper's Squirrel uninstaller never runs.
 * Not registered as the system `ssh://` handler unless the user opts in (`defaultSSHApp: false`).
 * Upstream update server and news feed (`*.hyper.is`, `hyper-news.now.sh`) are **not contacted**.
 * "Report Issue" redacts the values of user `env` entries before putting the config in an issue body.
@@ -138,8 +138,9 @@ Changes made in Phase 1 to keep the fork independent of a real Hyper installatio
    `node-pty`, and `typescript-json-schema` for `app/config/schema.json`.
 2. `pnpm run build`: webpack (renderer bundle + CLI), `tsc -b` (main process → `target/`, and type-checks
    `lib/`, `test/`, `cli/`), Babel minification of the renderer bundle.
-3. `electron-builder` packages `target/` into DMG / NSIS / AppImage / DEB. `bin/after-pack.js` copies the
-   per-architecture V8 snapshot and, for unsigned macOS builds, applies an ad-hoc signature.
+3. `electron-builder` packages `target/` into DMG / ZIP (Windows) / AppImage / DEB. `bin/after-pack.js` copies the
+   per-architecture V8 snapshot and, for unsigned macOS builds, applies an ad-hoc signature. `win.extraFiles`
+   places `build/win/uninstall.{cmd,ps1}` beside the executable, since a ZIP has no uninstaller of its own.
 
 ## 7. Continuous integration (new)
 
@@ -149,7 +150,7 @@ Upstream CI is broken (retired `upload-artifact@v3`, Node-20 actions). It has be
 | --- | --- | --- |
 | `ci.yml` | push to `main`, pull requests, manual | calls `build.yml` |
 | `build.yml` (reusable) | — | **artwork** (render SVG → PNG with librsvg) → **validate** (ESLint/Prettier, AVA unit tests, webpack + `tsc` build, licence gate) and **package** matrix |
-| `release.yml` | tag `v*.*.*` | `build.yml` with the tag's version → GitHub Release with installers, `SHA256SUMS.txt`, build info, notes |
+| `release.yml` | tag `v*.*.*` | `build.yml` with the tag's version → GitHub Release with packages, `SHA256SUMS.txt`, build info, notes |
 | `codeql-analysis.yml` | push/PR to `main`, weekly | CodeQL for JavaScript/TypeScript |
 
 Package matrix (native runner per OS, native modules compiled on that OS):
@@ -157,7 +158,7 @@ Package matrix (native runner per OS, native modules compiled on that OS):
 | Runner | Targets | Notes |
 | --- | --- | --- |
 | `macos-15` (Apple silicon) | DMG arm64 + DMG x64 | x64 `node-pty` cross-compiled with clang; ad-hoc signed |
-| `windows-2022` | NSIS installer x64 | Visual Studio 2022 for node-gyp 9; Windows arm64 planned on `windows-11-arm` |
+| `windows-2022` | Portable ZIP x64 | Visual Studio 2022 for node-gyp 9; Windows arm64 planned on `windows-11-arm` |
 | `ubuntu-22.04` | AppImage + DEB x64 | older glibc baseline for wider distro compatibility; Linux arm64 planned on `ubuntu-24.04-arm` |
 
 Every package job then launches the **packaged** app with Playwright (Linux under Xvfb), drives a real shell

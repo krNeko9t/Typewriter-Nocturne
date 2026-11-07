@@ -47,7 +47,7 @@ for f in "$dir"/*; do
   case "$name" in
     *mac-arm64.dmg) echo "| macOS · Apple silicon | \`${name}\` |" ;;
     *mac-x64.dmg) echo "| macOS · Intel | \`${name}\` |" ;;
-    *win-x64-setup.exe) echo "| Windows · x64 | \`${name}\` |" ;;
+    *win-x64.zip) echo "| Windows · x64 · portable ZIP | \`${name}\` |" ;;
     *.AppImage) echo "| Linux · AppImage | \`${name}\` |" ;;
     *.deb) echo "| Linux · Debian/Ubuntu | \`${name}\` |" ;;
   esac
@@ -59,8 +59,10 @@ cat <<NOTES
 
 - **macOS:** the app is ad-hoc signed only and not notarized, so Gatekeeper blocks the first launch.
   Open it once from *System Settings → Privacy & Security → Open Anyway*. Do not disable Gatekeeper.
-- **Windows:** SmartScreen shows "Windows protected your PC" for unsigned installers.
-  Choose *More info → Run anyway* only if the SHA-256 below matches.
+- **Windows:** the download is a ZIP, not an installer. Extract it anywhere and run \`Typewriter Nocturne.exe\`
+  inside. SmartScreen shows "Windows protected your PC" for the unsigned executable; choose
+  *More info → Run anyway* only if the SHA-256 below matches. To uninstall, run \`uninstall.cmd\` beside the
+  executable: it removes the settings directory, the PATH entry and the shell integrations.
 - Signed and notarized builds need an Apple Developer ID and a Windows code-signing certificate
   configured as repository secrets (see \`docs/INSTALL.md\`).
 

@@ -1,6 +1,6 @@
 # Install
 
-Typewriter Nocturne runs on macOS (Apple silicon and Intel), Windows x64 and Linux x64. Every installer is
+Typewriter Nocturne runs on macOS (Apple silicon and Intel), Windows x64 and Linux x64. Every package is
 built by GitHub Actions and published on the [Releases](https://github.com/Chaosnap/Typewriter-Nocturne/releases)
 page together with `SHA256SUMS.txt`.
 
@@ -8,7 +8,7 @@ page together with `SHA256SUMS.txt`.
 | --- | --- |
 | macOS, Apple silicon | `Typewriter-Nocturne-<version>-mac-arm64.dmg` |
 | macOS, Intel | `Typewriter-Nocturne-<version>-mac-x64.dmg` |
-| Windows x64 | `Typewriter-Nocturne-<version>-win-x64-setup.exe` |
+| Windows x64 | `Typewriter-Nocturne-<version>-win-x64.zip` (portable) |
 | Linux x64 | `…-linux-x86_64.AppImage` or `…-linux-amd64.deb` |
 
 Check the download before opening it:
@@ -22,8 +22,10 @@ shasum -a 256 Typewriter-Nocturne-*.dmg
 Signing needs paid certificates, which the project does not have yet, so the systems ask once:
 
 - **macOS**: after the first launch, open *System Settings → Privacy & Security* and choose *Open Anyway*.
-- **Windows**: SmartScreen shows "Windows protected your PC". Choose *More info → Run anyway* once you have
-  checked the checksum.
+- **Windows**: there is no installer. Extract the ZIP anywhere and run `Typewriter Nocturne.exe` from the
+  extracted folder, keeping the folder intact. SmartScreen shows "Windows protected your PC"; choose
+  *More info → Run anyway* once you have checked the checksum. To remove the app later, run `uninstall.cmd`
+  beside the executable — it clears the settings directory, the PATH entry and the shell integrations.
 - **Linux**: make the AppImage executable with `chmod +x`, or install the DEB with
   `sudo apt install ./Typewriter-Nocturne-*.deb`.
 

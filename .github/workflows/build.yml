@@ -98,11 +98,11 @@ jobs:
             os: macos-15
             slug: macos
             builder: --mac dmg --arm64 --x64
-          - name: Windows x64 (NSIS installer)
+          - name: Windows x64 (portable ZIP)
             # Visual Studio 2022: node-gyp 9 (used by @electron/rebuild 3) cannot detect newer releases.
             os: windows-2022
             slug: windows-x64
-            builder: --win nsis --x64
+            builder: --win zip --x64
           - name: Linux x64 (AppImage + DEB)
             os: ubuntu-22.04
             slug: linux-x64

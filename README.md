@@ -103,7 +103,7 @@ so the typewriter is drawn on the CPU there with Quality set to High). More in t
 ## Downloads
 
 Development builds are attached to each [CI run](https://github.com/Chaosnap/Typewriter-Nocturne/actions/workflows/ci.yml)
-(macOS arm64/x64 DMG, Windows x64 installer, Linux x64 AppImage and DEB). Tagged versions are published on the
+(macOS arm64/x64 DMG, Windows x64 portable ZIP, Linux x64 AppImage and DEB). Tagged versions are published on the
 [Releases](https://github.com/Chaosnap/Typewriter-Nocturne/releases) page with SHA-256 checksums.
 
 ## Contributing

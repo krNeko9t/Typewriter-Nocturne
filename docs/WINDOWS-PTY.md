@@ -16,7 +16,7 @@ changing this setting. Other platforms do not receive this Windows option.
 After installing dependencies, run `pnpm run test:windows-pty` on Windows. This
 uses Electron's runtime and the rebuilt addon to check that mouse tracking
 modes 1000/1002/1003/1006 reach the frontend and keyboard input reaches the
-child. The Windows packaging job runs this check before producing installers.
+child. The Windows packaging job runs this check before producing the portable ZIP.
 
 Manual acceptance: launch Herdr inside the app, click a different workspace,
 then click another terminal tab. Verify that both selections change and that

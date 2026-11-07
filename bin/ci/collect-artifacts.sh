@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# [nocturne] Gather installers from dist/ into dist/release/ with SHA-256 checksums and
+# [nocturne] Gather packages from dist/ into dist/release/ with SHA-256 checksums and
 # a machine-readable build record (version, commit, runner, signing state).
 #
 # Usage: bin/ci/collect-artifacts.sh <platform-slug> <version>
@@ -11,13 +11,13 @@ out="dist/release"
 mkdir -p "$out"
 
 shopt -s nullglob
-installers=(dist/*.dmg dist/*.exe dist/*.AppImage dist/*.deb)
-if [ "${#installers[@]}" -eq 0 ]; then
-  echo "No installers found in dist/" >&2
+packages=(dist/*.dmg dist/*.zip dist/*.AppImage dist/*.deb)
+if [ "${#packages[@]}" -eq 0 ]; then
+  echo "No packages found in dist/" >&2
   ls -la dist >&2 || true
   exit 1
 fi
-cp "${installers[@]}" "$out/"
+cp "${packages[@]}" "$out/"
 
 sha256() {
   if command -v sha256sum >/dev/null; then sha256sum "$@"; else shasum -a 256 "$@"; fi

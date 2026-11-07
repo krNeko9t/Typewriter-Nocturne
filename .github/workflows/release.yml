@@ -63,7 +63,7 @@ jobs:
           prerelease: ${{ contains(needs.version.outputs.version, '-') }}
           files: |
             dist/release/*.dmg
-            dist/release/*.exe
+            dist/release/*.zip
             dist/release/*.AppImage
             dist/release/*.deb
             dist/release/SHA256SUMS.txt
